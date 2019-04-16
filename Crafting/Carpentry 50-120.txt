@@ -1,7 +1,7 @@
 //
 // HOW TO USE
 //
-// Run the script (loop mode not necessary) and target a container holding leather and sewing kits
+// Run the script (loop mode not necessary) and target a container holding boards and saws
 //
 unsetalias 'tool'
 unsetalias 'stockpile'
