@@ -1,0 +1,152 @@
+//
+// HOW TO USE
+//
+// Run the script (loop mode not necessary) and target a container holding leather and sewing kits
+//
+unsetalias 'tool'
+unsetalias 'stockpile'
+if not listexists 'recycle'
+  createlist 'recycle'
+endif
+if not listexists 'recyclables'
+  createlist 'recyclables'
+endif
+if not listexists 'tooltype'
+  createlist 'tooltype'
+endif
+if not listexists 'resource'
+  createlist 'resource'
+endif
+clearlist 'recyclables'
+clearlist 'recycle'
+clearlist 'tooltype'
+clearlist 'resource'
+// set up script for carpentry
+pushlist 'tooltype' 0x1034 // saw?
+pushlist 'resource' 0x1bd7 // board
+pushlist 'recyclables' 0x13b4 // club
+pushlist 'recyclables' 0xe9e // tambourine
+pushlist 'recyclables' 0x2805 // bamboo flute
+pushlist 'recyclables' 0x1eba // repair kit
+//
+promptalias 'stockpile' 'Select the container that has your material and tools'
+//
+// loop
+//
+while not dead
+  //
+  // check for tools
+  //
+  if not @findtype tooltype[0] 'any' 'backpack'
+    if @findtype tooltype[0] 'any' 'stockpile'
+      for 5
+        @movetype tooltype[0] 'stockpile' 'backpack' 0 0 0 'any'
+        pause 1200
+      endfor
+    else
+      headmsg 'Script: Not enough tools in Stock Pile or Backpack.'
+      stop
+    endif
+  endif
+  //
+  // recycling function
+  //
+  if contents 'backpack' >= 125
+    pushlist 'recycle' 1
+  elseif weight >= maxweight
+    pushlist 'recycle' 1
+  elseif @counttype resource[0] 'any' 'backpack' < 20
+    pushlist 'recycle' 1
+  endif
+  if list 'recycle' > 0
+    sysmsg "Recycling"
+    clearlist 'recycle'
+    if @findtype tooltype[0] 'any' 'backpack'
+      // Grab the tool.
+      @setalias 'tool' 'found'
+      for 0 to 'recyclables'
+        sysmsg "Checking Recyclable"
+        if @findtype recyclables[] 'any' 'backpack'
+          // Found items to recycle
+          sysmsg "Found items to recycle"
+          useobject 'tool'
+          waitforgump 0x38920abd 15000
+          replygump 0x38920abd 3
+          waitforgump 0x38920abd 15000
+          waitfortarget 15000
+          target! 'found'
+          pause 200
+        endif
+      endfor
+    else
+      headmsg 'Script Stopped: You need atleast 20 of your resource, and you have no tools.'
+      stop
+    endif
+  endif
+  //
+  // Check for materials
+  //
+  if @counttype resource[0] 0 'backpack' < 20
+    sysmsg "Need more resources"
+    if @counttype resource[0] 0 'stockpile' > 100
+      sysmsg "Getting resources from stockpile"
+      @removetimer 'restock'
+      createtimer 'restock'
+      while @findtype resource[0] 0 'stockpile'
+        if amount 'found' < 200
+          sysmsg "Moving all of a small stack"
+          @moveitem 'found' 'backpack' 0 0 0 'any'
+          pause 1500
+        else
+          sysmsg "moving boards"
+          @moveitem 'found' 'backpack' 0 0 0 200
+          pause 1500
+        endif
+        if timer 'restock' > 30000
+          sysmsg "Unable to restock boards" 44
+          stop
+        endif
+        if @counttype resource[0] 0 'backpack' >= 200
+          break
+        endif
+      endwhile
+    else
+      headmsg 'Script: Not enough tools in Stock Pile or Backpack.'
+      stop
+    endif
+  endif
+  //
+  // Training
+  //
+  sysmsg "Training"
+  @findtype tooltype[0] 'any' 'backpack'
+  @setalias 'tool' 'found'
+  useobject 'tool'
+  waitforgump 0x38920abd 15000
+  while not @ingump 0x38920abd "Recycle All (of Type)"
+    replygump 0x38920abd 2
+    waitforgump 0x38920abd 15000
+    pause 150
+  endwhile
+  if skill 'Carpentry' < 65
+    replygump 0x38920abd 101
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 200
+  elseif skill 'Carpentry' < 75
+    replygump 0x38920abd 102
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 203
+  elseif skill 'Carpentry' < 100
+    replygump 0x38920abd 102
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 204
+  elseif skill 'Carpentry' < 120
+    replygump 0x38920abd 103
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 200
+  else
+    sysmsg "Finished!"
+    stop
+  endif
+  pause 2000
+endwhile
