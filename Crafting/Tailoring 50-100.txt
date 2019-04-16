@@ -97,7 +97,6 @@ while not dead
       sysmsg "Getting resources from stockpile"
       @removetimer 'restock'
       createtimer 'restock'
-      //while @counttype resource[0] 0 'backpack' < 200
       while @findtype resource[0] 0 'stockpile'
         if amount 'found' < 200
           sysmsg "Moving all of a small stack"
@@ -116,7 +115,6 @@ while not dead
           break
         endif
       endwhile
-      //endwhile
     else
       headmsg 'Script: Not enough tools in Stock Pile or Backpack.'
       stop
@@ -126,72 +124,43 @@ while not dead
   // Training
   //
   sysmsg "Training"
-  //if not gumpexists 0x38920abd
   @findtype tooltype[0] 'any' 'backpack'
   @setalias 'tool' 'found'
   useobject 'tool'
   waitforgump 0x38920abd 15000
-  //endif
   while not @ingump 0x38920abd "Recycle All (of Type)"
     replygump 0x38920abd 2
     waitforgump 0x38920abd 15000
     pause 150
   endwhile
-  //
-  // up to 65 skill training
-  //
   if skill 'Tailoring' < 65
     replygump 0x38920abd 101
     waitforgump 0x38920abd 15000
     replygump 0x38920abd 200
-    //
-    // up to 70 skill training
-    //
   elseif skill 'Tailoring' < 70
     replygump 0x38920abd 101
     waitforgump 0x38920abd 15000
     replygump 0x38920abd 201
-    //
-    // up to 75 skill training
-    //
   elseif skill 'Tailoring' < 75
     replygump 0x38920abd 101
     waitforgump 0x38920abd 15000
     replygump 0x38920abd 202
-    //
-    // up to 85 skill training
-    //
   elseif skill 'Tailoring' < 85
     replygump 0x38920abd 102
     waitforgump 0x38920abd 15000
     replygump 0x38920abd 200
-    //
-    // up to 90 skill training
-    //
   elseif skill 'Tailoring' < 90
     replygump 0x38920abd 102
     waitforgump 0x38920abd 15000
     replygump 0x38920abd 201
-    //
-    // up to 95 skill training
-    //
   elseif skill 'Tailoring' < 95
     replygump 0x38920abd 102
     waitforgump 0x38920abd 15000
     replygump 0x38920abd 202
-    //
-    // up to 100 skill training
-    //
   elseif skill 'Tailoring' < 100
     replygump 0x38920abd 102
     waitforgump 0x38920abd 15000
     replygump 0x38920abd 203
-    //
-    // up to 100 skill training
-    //
-    //
-    // unsupported skill level or finished
-    //
   else
     sysmsg "Finished!"
     stop
