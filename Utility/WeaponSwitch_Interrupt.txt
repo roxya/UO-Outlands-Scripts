@@ -1,4 +1,4 @@
-if @serial 'righthand' == @serial 'grindweap'
+if @serial 'righthand' == @serial 'interruptweap'
   stop
 endif
 if @findobject 'interruptweap' 'any' 'backpack'
