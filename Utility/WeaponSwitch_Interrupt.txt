@@ -3,11 +3,15 @@ if not @listexists 'interruptweaps'
 else
   @clearlist 'interruptweaps'
 endif
-// katana, add others!
+// katana, cutlass, scimitar
 @pushlist 'interruptweaps' 0x13ff
-if @inlist 'interruptweaps' @graphic 'righthand'
-  stop
-endif
+@pushlist 'interruptweaps' 0x1441
+@pushlist 'interruptweaps' 0x13b6
+for 0 to 'interruptweaps'
+  if @graphic 'righthand' == interruptweaps[]
+    stop
+  endif
+endfor
 for 0 to 'interruptweaps'
   if @findtype interruptweaps[] 'any' 'backpack'
     @useobject 'found'
