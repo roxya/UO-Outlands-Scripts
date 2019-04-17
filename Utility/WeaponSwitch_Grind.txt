@@ -1,4 +1,12 @@
-@unsetalias 'weap'
+if @serial 'lefthand' == @serial 'grindweap'
+  stop
+endif
+if @findobject 'grindweap' 'any' 'backpack'
+  @clearhands 'both'
+  pause 600
+  @equipitem 'grindweap' 2
+  stop
+endif
 @removelist 'grindhweaps'
 @createlist 'grindhweaps'
 // axe graphics
@@ -10,7 +18,7 @@
 @pushlist 'grindhweaps' 0xf49
 for 0 to 'grindhweaps'
   if @findtype grindhweaps[] 'any' 'backpack'
-    @setalias 'weap' 'found'
+    @setalias 'grindweap' 'found'
     if @findobject 'righthand' or @findobject 'lefthand'
       if graphic 'found' == grindhweaps[]
         stop
@@ -18,7 +26,7 @@ for 0 to 'grindhweaps'
       @clearhands 'both'
       pause 600
     endif
-    @equipitem 'weap' 2
+    @equipitem 'grindweap' 2
     stop
   endif
 endfor
