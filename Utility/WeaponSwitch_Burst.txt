@@ -1,9 +1,13 @@
 if not @listexists 'burstweaps'
   @createlist 'burstweaps'
+else
+  @clearlist 'burstweaps'
 endif
-@clearlist 'burstweaps'
-// halberd graphic, should add bardiche and maybe greathammer
+// halberd, add bardiche!
 @pushlist 'burstweaps' 0x143e
+if @inlist 'burstweaps' @graphic 'lefthand'
+  stop
+endif
 for 0 to 'burstweaps'
   if @findtype burstweaps[] 'any' 'backpack'
     @useobject 'found'
