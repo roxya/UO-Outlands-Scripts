@@ -1,0 +1,23 @@
+if @serial 'lefthand' == @serial 'burstweap'
+  stop
+endif
+if not @findobject 'burstweap' 'any' 'backpack'
+  @removelist 'burstweaps'
+  @createlist 'burstweaps'
+  @pushlist 'burstweaps' 0x143e
+  for 0 to 'burstweaps'
+    if @findtype burstweaps[] 'any' 'backpack'
+      @setalias 'burstweap' 'found'
+      break
+    endif
+  endfor
+endif
+if @findobject 'righthand' or @findobject 'lefthand'
+  if @inlist 'burstweaps' @graphic 'found'
+    stop
+  else
+    @clearhands 'both'
+    pause 600
+  endif
+endif
+@equipitem 'burstweap' 2
