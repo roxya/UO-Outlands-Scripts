@@ -1,6 +1,7 @@
 if not @listexists 'interruptweaps'
   @createlist 'interruptweaps'
 endif
+@clearlist 'interruptweaps'
 // katana, add others
 @pushlist 'interruptweaps' 0x13ff
 for 0 to 'interruptweaps'
