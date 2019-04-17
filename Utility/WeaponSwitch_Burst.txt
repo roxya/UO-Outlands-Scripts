@@ -3,11 +3,14 @@ if not @listexists 'burstweaps'
 else
   @clearlist 'burstweaps'
 endif
-// halberd, add bardiche!
+// halberd, bardiche
 @pushlist 'burstweaps' 0x143e
-if @inlist 'burstweaps' @graphic 'lefthand'
-  stop
-endif
+@pushlist 'burstweaps' 0xf4d
+for 0 to 'burstweaps'
+  if @graphic 'lefthand' == burstweaps[]
+    stop
+  endif
+endfor
 for 0 to 'burstweaps'
   if @findtype burstweaps[] 'any' 'backpack'
     @useobject 'found'
