@@ -1,25 +1,11 @@
 // This is a code fragment which can be used in other macros that need meditation
 //
-// It will attempt to meditate to full, and will not use meditation if already meditating
-//
-// set minMana to desired minimum for casting whatever spell
-// set medToFull if you want to fully meditate, otherwise it'll med only to minMana
-//
-if not @listexists 'minCastMana'
-  @createlist 'minCastMana'
-endif
-if not @listexists 'minMedMana'
-  @createlist 'minMedMana'
-endif
-clearlist 'minCastMana'
-clearlist 'minMedMana'
-// meditate if mana lower than minCastMana
-pushlist 'minCastMana' 40
-// medidate until mana is minMedMana
-pushlist 'minMedMana' 100
-//
-if mana < minCastMana[0]
-  while mana < minMedMana
+// It will attempt to meditate to your desired maximum, and will not use meditation if already meditating
+
+// medidate if mana < 40
+if mana < 40
+  // medidate until mana = 100 (if you are GM med you may as well set to whatever the spell cost is)
+  while mana < 100
     if not buffexists 'Meditation'
       useskill 'meditation'
       pause 2000
