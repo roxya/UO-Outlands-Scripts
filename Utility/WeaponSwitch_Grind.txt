@@ -10,9 +10,11 @@ endif
 @pushlist 'grindweaps' 0xf4b
 @pushlist 'grindweaps' 0x1443
 @pushlist 'grindweaps' 0xf49
-if @inlist 'grindweaps' @graphic 'lefthand'
-  stop
-endif
+for 0 to 'grindweaps'
+  if @graphic 'lefthand' == grindweaps[]
+    stop
+  endif
+endfor
 for 0 to 'grindweaps'
   if @findtype grindweaps[] 'any' 'backpack'
     @useobject 'found'
