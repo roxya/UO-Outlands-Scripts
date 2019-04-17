@@ -1,0 +1,19 @@
+@unsetalias 'weap'
+@removelist 'burstweaps'
+@createlist 'burstweaps'
+// halberd graphic
+@pushlist 'burstweaps' 0x143e
+for 0 to 'burstweaps'
+  if @findtype burstweaps[] 'any' 'backpack'
+    @setalias 'weap' 'found'
+    if @findobject 'righthand' or @findobject 'lefthand'
+      if graphic 'found' == burstweaps[]
+        stop
+      endif
+      @clearhands 'both'
+      pause 600
+    endif
+    @equipitem 'weap' 2
+    stop
+  endif
+endfor
