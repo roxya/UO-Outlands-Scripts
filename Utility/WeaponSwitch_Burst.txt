@@ -1,6 +1,7 @@
 if not @listexists 'burstweaps'
   @createlist 'burstweaps'
 endif
+@clearlist 'burstweaps'
 // halberd graphic, should add bardiche and maybe greathammer
 @pushlist 'burstweaps' 0x143e
 for 0 to 'burstweaps'
