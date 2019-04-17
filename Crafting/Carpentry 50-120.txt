@@ -44,7 +44,7 @@ while not dead
         pause 1200
       endfor
     else
-      headmsg 'Script: Not enough tools in Stock Pile or Backpack.'
+      headmsg 'Script: Not enough tools in stockpile or backpack.'
       stop
     endif
   endif
@@ -111,7 +111,7 @@ while not dead
         endif
       endwhile
     else
-      headmsg 'Script: Not enough tools in Stock Pile or Backpack.'
+      headmsg 'Script: Not enough boards in stockpile or backpack.'
       stop
     endif
   endif
