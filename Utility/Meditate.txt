@@ -8,7 +8,7 @@ if mana < 40
   while mana < 100
     if not buffexists 'Meditation'
       useskill 'meditation'
-      pause 2000
+      pause 2150
     endif
     pause 150
   endwhile
