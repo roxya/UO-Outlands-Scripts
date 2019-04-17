@@ -1,6 +1,7 @@
 if not @listexists 'grindweaps'
   @createlist 'grindweaps'
 endif
+@clearlist 'grindweaps'
 // all 2h axes
 @pushlist 'grindweaps' 0xf45
 @pushlist 'grindweaps' 0x13fb
