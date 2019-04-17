@@ -1,11 +1,19 @@
-@unsetalias 'weap'
+if @serial 'lefthand' == @serial 'grindweap'
+  stop
+endif
+if @findobject 'burstweap' 'any' 'backpack'
+  @clearhands 'both'
+  pause 600
+  @equipitem 'burstweap' 2
+  stop
+endif
 @removelist 'burstweaps'
 @createlist 'burstweaps'
 // halberd graphic
 @pushlist 'burstweaps' 0x143e
 for 0 to 'burstweaps'
   if @findtype burstweaps[] 'any' 'backpack'
-    @setalias 'weap' 'found'
+    @setalias 'burstweap' 'found'
     if @findobject 'righthand' or @findobject 'lefthand'
       if graphic 'found' == burstweaps[]
         stop
@@ -13,7 +21,7 @@ for 0 to 'burstweaps'
       @clearhands 'both'
       pause 600
     endif
-    @equipitem 'weap' 2
+    @equipitem 'burstweap' 2
     stop
   endif
 endfor
