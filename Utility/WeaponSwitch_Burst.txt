@@ -1,17 +1,11 @@
-if @serial 'lefthand' == @serial 'burstweap'
-  stop
+if not @listexists 'burstweaps'
+  @createlist 'burstweaps'
 endif
-if @findobject 'burstweap' 'any' 'backpack'
-  @useobject 'burstweap'
-  stop
-endif
-@removelist 'burstweaps'
-@createlist 'burstweaps'
 // halberd graphic, should add bardiche and maybe greathammer
 @pushlist 'burstweaps' 0x143e
 for 0 to 'burstweaps'
   if @findtype burstweaps[] 'any' 'backpack'
-    @setalias 'burstweap' 'found'
-    @useobject 'burstweap'
+    @useobject 'found'
+    stop
   endif
 endfor
