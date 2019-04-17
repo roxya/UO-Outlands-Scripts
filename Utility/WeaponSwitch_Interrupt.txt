@@ -1,11 +1,19 @@
-@unsetalias 'weap'
+if @serial 'righthand' == @serial 'grindweap'
+  stop
+endif
+if @findobject 'interruptweap' 'any' 'backpack'
+  @clearhands 'both'
+  pause 600
+  @equipitem 'interruptweap' 2
+  stop
+endif
 @removelist 'interruptweaps'
 @createlist 'interruptweaps'
 // katana graphic
 @pushlist 'interruptweaps' 0x13ff
 for 0 to 'interruptweaps'
   if @findtype interruptweaps[] 'any' 'backpack'
-    @setalias 'weap' 'found'
+    @setalias 'interruptweap' 'found'
     if @findobject 'righthand' or @findobject 'lefthand'
       if graphic 'found' == interruptweaps[]
         stop
@@ -13,7 +21,7 @@ for 0 to 'interruptweaps'
       @clearhands 'both'
       pause 600
     endif
-    @equipitem 'weap' 1
+    @equipitem 'interruptweap' 1
     stop
   endif
 endfor
