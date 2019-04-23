@@ -125,52 +125,75 @@ while not dead
   sysmsg "Training"
   @findtype tooltype[0] 'any' 'backpack'
   @setalias 'tool' 'found'
-  useobject 'tool'
-  waitforgump 0x38920abd 15000
+  if not @gumpexists 0x38920abd or @injournal 'worn out your tool' 'system'
+    @clearjournal
+    @useobject 'tool'
+    waitforgump 0x38920abd 15000
+  endif
   while not @ingump 0x38920abd "Recycle All (of Type)"
     replygump 0x38920abd 2
     waitforgump 0x38920abd 15000
     pause 150
   endwhile
   if skill 'Tailoring' < 65
-    replygump 0x38920abd 101
-    waitforgump 0x38920abd 15000
+    if not @ingump 0x38920abd 'Leather Gorget'
+      replygump 0x38920abd 101
+      waitforgump 0x38920abd 15000
+    endif
     replygump 0x38920abd 200
   elseif skill 'Tailoring' < 70
-    replygump 0x38920abd 101
-    waitforgump 0x38920abd 15000
+    if not @ingump 0x38920abd 'Leather Gorget'
+      replygump 0x38920abd 101
+      waitforgump 0x38920abd 15000
+    endif
     replygump 0x38920abd 201
   elseif skill 'Tailoring' < 75
-    replygump 0x38920abd 101
-    waitforgump 0x38920abd 15000
+    if not @ingump 0x38920abd 'Leather Gorget'
+      replygump 0x38920abd 101
+      waitforgump 0x38920abd 15000
+    endif
     replygump 0x38920abd 202
   elseif skill 'Tailoring' < 85
-    replygump 0x38920abd 102
-    waitforgump 0x38920abd 15000
+    if not @ingump 0x38920abd 'Studded Gorget'
+      replygump 0x38920abd 102
+      waitforgump 0x38920abd 15000
+    endif
     replygump 0x38920abd 200
   elseif skill 'Tailoring' < 90
-    replygump 0x38920abd 102
-    waitforgump 0x38920abd 15000
+    if not @ingump 0x38920abd 'Studded Gorget'
+      replygump 0x38920abd 102
+      waitforgump 0x38920abd 15000
+    endif
     replygump 0x38920abd 201
   elseif skill 'Tailoring' < 95
-    replygump 0x38920abd 102
-    waitforgump 0x38920abd 15000
+    if not @ingump 0x38920abd 'Studded Gorget'
+      replygump 0x38920abd 102
+      waitforgump 0x38920abd 15000
+    endif
     replygump 0x38920abd 202
   elseif skill 'Tailoring' < 100
-    replygump 0x38920abd 102
-    waitforgump 0x38920abd 15000
+    if not @ingump 0x38920abd 'Studded Gorget'
+      replygump 0x38920abd 102
+      waitforgump 0x38920abd 15000
+    endif
     replygump 0x38920abd 203
   elseif skill 'Tailoring' < 105
-    replygump 0x38920abd 102
-    waitforgump 0x38920abd 15000
+    if not @ingump 0x38920abd 'Studded Gorget'
+      replygump 0x38920abd 102
+      waitforgump 0x38920abd 15000
+    endif
     replygump 0x38920abd 204
   elseif skill 'Tailoring' < 120
-    replygump 0x38920abd 108
-    waitforgump 0x38920abd 15000
+    if not @ingump 0x38920abd 'Tailoring Repair Kit'
+      replygump 0x38920abd 108
+      waitforgump 0x38920abd 15000
+    endif
     replygump 0x38920abd 200
   else
     sysmsg "Finished!"
     stop
   endif
-  pause 2000
+  //wait twice = we finished attempting to craft the item
+  waitforgump 0x38920abd 15000
+  waitforgump 0x38920abd 15000
 endwhile
