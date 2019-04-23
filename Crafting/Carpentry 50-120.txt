@@ -72,7 +72,6 @@ while not dead
           useobject 'tool'
           waitforgump 0x38920abd 15000
           replygump 0x38920abd 3
-          waitforgump 0x38920abd 15000
           waitfortarget 15000
           target! 'found'
           pause 200
